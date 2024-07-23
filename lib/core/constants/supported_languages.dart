@@ -1,8 +1,11 @@
-import 'dart:ui';
+
+import 'package:ingo/core/models/arabic.dart';
+import 'package:ingo/core/models/english.dart';
+import 'package:ingo/core/models/language.dart';
 
 class SupportedLanguages {
-  static List<Locale> get locales => const [
-        Locale('en', 'US'),
-        Locale('ar', 'SA'),
+  static List<Language> get locales =>  [
+          ArabicLanguage(),
+          EnglishLanguage()
       ];
 }

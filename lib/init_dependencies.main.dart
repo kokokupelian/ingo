@@ -16,8 +16,12 @@ Future<void> initDependencies() async {
 
   serviceLocator
       .registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  _onBoard();
+  
+}
 
-  serviceLocator
+ _onBoard(){
+serviceLocator
     ..registerFactory<OnBoardDatasource>(
       () => OnBoardDatadourceImpl(
         sharedPreferences: serviceLocator(),

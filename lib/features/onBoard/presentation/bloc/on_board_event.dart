@@ -12,9 +12,9 @@ final class OnBoardLogInEvent extends OnBoardEvent {}
 final class OnBoardIsLoggedInEvent extends OnBoardEvent {}
 
 final class OnBoardSaveLanguageEvent extends OnBoardEvent {
-  final Locale locale;
+  final Language language;
 
-  OnBoardSaveLanguageEvent({required this.locale});
+  OnBoardSaveLanguageEvent({required this.language});
 }
 
 final class OnBoardGetLanguageEvent extends OnBoardEvent {}

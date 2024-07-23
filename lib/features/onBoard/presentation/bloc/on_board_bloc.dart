@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:ingo/core/errors/failure.dart';
+import 'package:ingo/core/constants/supported_languages.dart';
+import 'package:ingo/core/models/language.dart';
 import 'package:ingo/core/usecases/usecase.dart';
 import 'package:ingo/features/onBoard/domain/usecases/get_language.dart';
 import 'package:ingo/features/onBoard/domain/usecases/is_logged_in.dart';
 import 'package:ingo/features/onBoard/domain/usecases/log_in.dart';
 import 'package:ingo/features/onBoard/domain/usecases/save_language.dart';
-import 'package:ingo/init_dependencies.main.dart';
 
 part 'on_board_event.dart';
 part 'on_board_state.dart';
@@ -53,18 +53,21 @@ class OnBoardBloc extends Bloc<OnBoardEvent, OnBoardState> {
 
     on<OnBoardGetLanguageEvent>((event, emit) {
       var value = _getLanguage(NoParams());
-      value.fold(
+      emit(value.fold(
         (l) => OnBoardFailureState(message: l.message),
-        (r) => OnBoardLanguageState(locale: r),
-      );
+        (r) => OnBoardLanguageState(
+            language: SupportedLanguages.locales.firstWhere(
+          (element) => element.locale.countryCode == r.countryCode,
+        )),
+      ));
     });
 
     on<OnBoardSaveLanguageEvent>((event, emit) async {
-      var value = await _saveLanguage(event.locale);
-      value.fold(
+      var value = await _saveLanguage(event.language.locale);
+      emit(value.fold(
         (l) => OnBoardFailureState(message: l.message),
-        (r) => OnBoardSuccessState(value: r),
-      );
+        (r) => OnBoardLanguageState(language: event.language),
+      ));
     });
   }
 }

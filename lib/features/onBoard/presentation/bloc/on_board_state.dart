@@ -16,9 +16,9 @@ final class OnBoardPageFirstState extends OnBoardState {}
 final class OnBoardPageFinishedState extends OnBoardState {}
 
 final class OnBoardLanguageState extends OnBoardState {
-  final Locale locale;
+  final Language language;
 
-  OnBoardLanguageState({required this.locale});
+  OnBoardLanguageState({required this.language});
 }
 
 final class OnBoardSuccessState extends OnBoardState {
